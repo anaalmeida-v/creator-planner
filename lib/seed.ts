@@ -1,0 +1,138 @@
+import type { ContentItem } from "./types";
+
+export const STORAGE_KEY = "oopsaninha.content.v1";
+
+export const seedContent: ContentItem[] = [
+  {
+    id: "c-semana",
+    format: "video-longo",
+    idea: "organizar a semana com calma: planner, prioridades e o que pode esperar.",
+    publishAt: new Date(2026, 9, 28, 18, 0).toISOString(),
+    coverText: "organizando a semana",
+    studioTitle: "um ritmo mais leve para a semana ☕️",
+    script: {
+      hook: "você também sente que a semana começa antes de você estar pronta?",
+      scenes:
+        "abre o planner, escolhe 3 prioridades, mostra o que vai sair da lista e um cantinho de café no meio da bagunça.",
+      cta: "salva esse vídeo e me conta: qual é a sua prioridade número 1 essa semana?",
+    },
+    description:
+      "essa semana eu quis menos pressão e mais clareza.\n\num planner simples, três prioridades e espaço para o que pode esperar.\n\nse você também está tentando ir no seu ritmo, esse vídeo é um convite pra respirar junto.\n\n#oopsaninha #rotina #organizandoasemana #conteudocomcalma",
+    tags: ["oopsaninha", "rotina", "planner", "youtube", "semana"],
+    status: "roteiro",
+  },
+  {
+    id: "c-shorts-manha",
+    format: "shorts",
+    idea: "minha manhã lenta: café, caderno e uma ideia que não precisa ser perfeita.",
+    publishAt: new Date(2026, 9, 23, 9, 30).toISOString(),
+    coverText: "manha lenta",
+    studioTitle: "café e uma ideia crua ✨",
+    script: {
+      hook: "3 segundos: xícara, caderno aberto, uma frase no papel.",
+      scenes: "mostra o ritual rápido e a frase da ideia central.",
+      cta: "segue pra mais manhãs no ritmo da aninha.",
+    },
+    description: "um shorts sobre começar o dia sem pressa.\n\n#oopsaninha #shorts #manhalenta",
+    tags: ["oopsaninha", "shorts", "manhã"],
+    status: "ideia",
+  },
+  {
+    id: "c-banco",
+    format: "video-longo",
+    idea: "como eu guardo ideias soltas sem deixar o caderno virar um cemitério de posts.",
+    publishAt: new Date(2026, 9, 30, 19, 0).toISOString(),
+    coverText: "banco de ideias vivo",
+    studioTitle: "suas ideias merecem um lugar 🤍",
+    script: {
+      hook: "ideia boa que some no dia seguinte: te conheço.",
+      scenes: "mostra o banco, as tags e como uma ideia vira roteiro.",
+      cta: "me manda a ideia que está parada no seu notes.",
+    },
+    description: "um método leve pra não perder o que já nasceu.\n\n#oopsaninha #ideias #criacao",
+    tags: ["oopsaninha", "ideias", "criacao"],
+    status: "ideia",
+  },
+  {
+    id: "c-final-mes",
+    format: "video-longo",
+    idea: "fechar o mês sem culpa: o que ficou, o que segue e o que pode ir embora.",
+    publishAt: new Date(2026, 9, 31, 18, 0).toISOString(),
+    coverText: "o fim do mes com calma",
+    studioTitle: "fechar o mês sem se cobrar 🤍",
+    script: {
+      hook: "último dia do mês e a lista ainda está ali. respira.",
+      scenes: "risca o que não cabe, celebra o que saiu, escolhe uma coisa só pra novembro.",
+      cta: "me conta nos comentários o que você decide deixar pra trás.",
+    },
+    description:
+      "nem tudo que ficou pendente precisa virar novembro.\n\nesse vídeo é um convite pra encerrar o ciclo com gentileza.\n\n#oopsaninha #rotina #fimdomes",
+    tags: ["oopsaninha", "rotina", "mês"],
+    status: "roteiro",
+  },
+  {
+    id: "c-caderno",
+    format: "shorts",
+    idea: "uma página do caderno: três linhas que viram um vídeo.",
+    publishAt: new Date(2026, 9, 8, 11, 0).toISOString(),
+    coverText: "tres linhas no caderno",
+    studioTitle: "do papel pra câmera ✨",
+    script: {
+      hook: "mostra a página e lê a primeira linha em voz baixa.",
+      scenes: "escreve, sublinha, fecha o caderno.",
+      cta: "salva se o seu caderno também é o rascunho do canal.",
+    },
+    description: "shorts sobre transformar nota crua em conteúdo.\n\n#oopsaninha #shorts #caderno",
+    tags: ["oopsaninha", "shorts", "caderno"],
+    status: "publicado",
+  },
+  {
+    id: "c-prioridades",
+    format: "video-longo",
+    idea: "como eu escolho só 3 prioridades quando tudo parece urgente.",
+    publishAt: new Date(2026, 9, 14, 18, 30).toISOString(),
+    coverText: "so tres prioridades",
+    studioTitle: "quando tudo parece urgente ☕️",
+    script: {
+      hook: "se a sua lista tem dezessete itens, esse vídeo é pra você.",
+      scenes: "mostra o critério, risca com calma e deixa três coisas visíveis.",
+      cta: "escreve aqui as suas três de hoje.",
+    },
+    description:
+      "urgência não é o mesmo que importância.\n\nesse é o jeito mais gentil que encontrei de escolher o que entra na semana.\n\n#oopsaninha #prioridades #rotina",
+    tags: ["oopsaninha", "prioridades", "rotina"],
+    status: "pronto",
+  },
+  {
+    id: "c-cafe",
+    format: "shorts",
+    idea: "o café da tarde como pausa real, não como recompensa.",
+    publishAt: new Date(2026, 9, 21, 16, 0).toISOString(),
+    coverText: "pausa do cafe",
+    studioTitle: "uma pausa que não precisa ser ganha ☕️",
+    script: {
+      hook: "corta na chaleira e no silêncio de 10 segundos.",
+      scenes: "prepara, senta, não pega o celular.",
+      cta: "vai fazer o seu também e volta pra me contar.",
+    },
+    description: "um shorts sobre pausar de verdade.\n\n#oopsaninha #shorts #pausa",
+    tags: ["oopsaninha", "shorts", "pausa"],
+    status: "ideia",
+  },
+  {
+    id: "c-nov-encaixe",
+    format: "shorts",
+    idea: "o encaixe impossível: o que cabe em 15 segundos de verdade.",
+    publishAt: new Date(2026, 10, 2, 12, 0).toISOString(),
+    coverText: "quinze segundos honestos",
+    studioTitle: "sem forçar o encaixe ✨",
+    script: {
+      hook: "corta direto no detalhe que todo mundo finge que dá tempo.",
+      scenes: "lista o que entra e o que sai.",
+      cta: "salva se você também recusa o conteúdo apressado.",
+    },
+    description: "shorts sobre ritmo, não sobre produtividade tóxica.\n\n#oopsaninha #shorts",
+    tags: ["oopsaninha", "shorts", "ritmo"],
+    status: "pronto",
+  },
+];

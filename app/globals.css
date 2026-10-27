@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  background: #fcfbf9;
+  color: #2c2c2c;
+}
+
+body {
+  min-height: 100dvh;
+  font-feature-settings: "ss01" on, "cv11" on;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #dfdcd5;
+  border-radius: 999px;
+  border: 2px solid #fcfbf9;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
