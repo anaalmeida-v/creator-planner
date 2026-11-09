@@ -23,7 +23,7 @@ export function PlannerView() {
   const split = Boolean(selected);
 
   return (
-    <div className="h-screen max-h-screen overflow-hidden flex flex-col bg-neutral-50/20">
+    <div className="min-h-[100dvh] flex flex-col bg-neutral-50/20 pb-20 lg:pb-0">
       {/* Header Desktop */}
       <header className="hidden border-b border-line px-8 py-4 lg:block shrink-0 bg-white">
         <div className="flex items-start justify-between gap-4">
@@ -56,16 +56,16 @@ export function PlannerView() {
       </header>
 
       {/* Header Mobile */}
-      <div className="px-4 py-3 lg:hidden shrink-0 bg-white border-b border-line">
-        <h1 className="text-[20px] font-medium lowercase leading-tight">seu conteúdo, no seu ritmo.</h1>
+      <div className="px-4 py-3 lg:hidden shrink-0 bg-white border-b border-line sticky top-0 z-20 shadow-xs">
+        <h1 className="text-[18px] font-medium lowercase leading-tight">seu conteúdo, no seu ritmo.</h1>
         <div className="mt-3">
           <FiltersBar />
         </div>
       </div>
 
-      {/* Área Central com Altura Fixa e Sem Estourar 100vh */}
-      <div className="flex-1 min-h-0 overflow-hidden flex flex-col p-4 lg:px-8 lg:py-6">
-        <div className="flex-1 min-h-0 overflow-hidden flex flex-col">
+      {/* Área Central Flexível */}
+      <div className="flex-1 flex flex-col p-4 lg:px-8 lg:py-6">
+        <div className="flex-1 flex flex-col">
           {view === "calendario" && <CalendarGrid />}
           {view === "lista" && <AgendaList />}
           {view === "kanban" && (
@@ -79,14 +79,14 @@ export function PlannerView() {
       </div>
 
       {/* QuickAdd no Rodapé */}
-      <div id="nova-ideia" className="shrink-0 px-4 lg:px-8 pb-4">
+      <div id="nova-ideia" className="px-4 lg:px-8 pb-6 mt-auto">
         <QuickAdd />
       </div>
 
       {/* Modal Centralizado / Painel de Detalhes Flutuante */}
       {split && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl border border-neutral-200 flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-end lg:items-center justify-center p-0 lg:p-4">
+          <div className="bg-white w-full lg:max-w-4xl h-[90vh] lg:max-h-[90vh] rounded-t-3xl lg:rounded-2xl shadow-2xl border border-neutral-200 flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150">
             <div className="flex-1 overflow-y-auto p-4 lg:p-6">
               <DetailsPanel />
             </div>
