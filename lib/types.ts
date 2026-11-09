@@ -1,6 +1,14 @@
-export type Format = "video-longo" | "shorts";
-export type Status = "ideia" | "roteiro" | "pronto" | "publicado";
-export type ViewMode = "calendario" | "lista";
+export type Format = "video-longo" | "shorts" | "reels" | "tiktok";
+
+export type Status = 
+  | "ideia" 
+  | "roteiro" 
+  | "gravacao" 
+  | "edicao" 
+  | "pronto" 
+  | "publicado";
+
+export type ViewMode = "calendario" | "lista" | "kanban";
 
 export interface ScriptBlock {
   hook: string;
@@ -25,4 +33,13 @@ export interface Filters {
   format: "todos" | Format;
   status: "todos" | Status;
   query: string;
+}
+
+export interface CreatorProfile {
+  channelName: string;
+  channelUrl?: string;
+  titleStyle: "lowercase" | "uppercase" | "capitalized";
+  thumbnailMaxWords: number;
+  hashtags: string[];
+  socialHandle: string;
 }
