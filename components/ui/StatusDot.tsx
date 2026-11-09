@@ -4,8 +4,10 @@ import { statusLabel } from "@/lib/utils";
 const tones: Record<Status, string> = {
   ideia: "bg-ink-soft",
   roteiro: "bg-coffee",
+  gravacao: "bg-amber-600",
+  edicao: "bg-blue-600",
   pronto: "bg-emerald-700/80",
-  publicado: "bg-ink",
+  publicado: "bg-neutral-400",
 };
 
 export function StatusDot({ status }: { status: Status }) {
