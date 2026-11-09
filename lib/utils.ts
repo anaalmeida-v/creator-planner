@@ -54,10 +54,6 @@ export function toDateInput(iso: string) {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 }
 
-export function toDateTimeLocal(iso: string) {
-  return `${toDateInput(iso)}T${formatTime(iso)}`;
-}
-
 export function fromDateAndTime(date: string, time = "18:00") {
   const [y, m, d] = date.split("-").map(Number);
   const [hh, mm] = time.split(":").map(Number);
@@ -111,4 +107,29 @@ export function defaultFromIdea(idea: string, format: Format, publishAt: string)
     tags: ["oopsaninha", "rotina", format === "shorts" ? "shorts" : "youtube"],
     status: "ideia",
   };
+}
+
+// Garante que a data de hoje seja obtida corretamente sem desvios de fuso horário UTC
+export function getTodayLocalDate(): string {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+// Para campos datetime-local garantindo a hora atual local correta
+export function toDateTimeLocal(dateString?: string): string {
+  const date = dateString ? new Date(dateString) : new Date();
+  
+  // Se a data for inválida, usa o momento atual
+  const d = isNaN(date.getTime()) ? new Date() : date;
+  
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  const hours = String(d.getHours()).padStart(2, "0");
+  const minutes = String(d.getMinutes()).padStart(2, "0");
+
+  return `${year}-${month}-${T}${hours}:${minutes}`.replace('T', 'T');
 }
