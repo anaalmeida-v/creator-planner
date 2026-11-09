@@ -10,11 +10,14 @@ import { FiltersBar } from "./FiltersBar";
 import { QuickAdd } from "./QuickAdd";
 
 export function PlannerView() {
-  // Blinda o TypeScript caso os nomes na store variem ligeiramente
-  const store = useStore() as any;
-  const { view, selected, filters, setFilters, items } = store;
-  const updateStatus = store.updateStatus || store.updateItemStatus;
-  const setSelected = store.setSelected || store.selectItem;
+  const store = useStore() as unknown as Record<string, unknown>;
+  const view = store.view as string;
+  const selected = store.selected;
+  const filters = (store.filters as { query?: string }) || {};
+  const setFilters = store.setFilters as (filters: { query?: string }) => void;
+  const items = (store.items as any[]) || [];
+  const updateStatus = store.updateStatus as (id: string, status: string) => void;
+  const setSelected = store.setSelected as (id: string | null) => void;
 
   const split = Boolean(selected);
 
@@ -32,7 +35,7 @@ export function PlannerView() {
               <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-soft" />
               <input
                 value={filters?.query || ''}
-                onChange={(e) => setFilters({ query: e.target.value })}
+                onChange={(e) => setFilters?.({ query: e.target.value })}
                 placeholder="buscar"
                 className="w-44 rounded-full border border-line bg-white py-1.5 pl-8 pr-3 text-[13px] outline-none placeholder:text-ink-soft focus:border-neutral-400"
               />
@@ -66,7 +69,7 @@ export function PlannerView() {
           {view === "lista" && <AgendaList />}
           {view === "kanban" && (
             <KanBanBoard 
-              items={items || []} 
+              items={items} 
               onSelectCard={(item) => setSelected?.(item.id)} 
               onStatusChange={(id, status) => updateStatus?.(id, status)} 
             />
@@ -79,9 +82,9 @@ export function PlannerView() {
         <QuickAdd />
       </div>
 
-    {/* Modal Centralizado / Painel de Detalhes Flutuante */}
+      {/* Modal Centralizado / Painel de Detalhes Flutuante */}
       {split && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 lg:p-6">
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl border border-neutral-200 flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150">
             <div className="flex-1 overflow-y-auto p-4 lg:p-6">
               <DetailsPanel />
