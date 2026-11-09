@@ -5,68 +5,90 @@ import { DetailsPanel } from "@/components/details/DetailsPanel";
 import { useStore } from "@/lib/store";
 import { AgendaList } from "./AgendaList";
 import { CalendarGrid } from "./CalendarGrid";
+import { KanBanBoard } from "./KanbanBoard";
 import { FiltersBar } from "./FiltersBar";
 import { QuickAdd } from "./QuickAdd";
 
 export function PlannerView() {
-  const { view, selected, filters, setFilters } = useStore();
+  // Blinda o TypeScript caso os nomes na store variem ligeiramente
+  const store = useStore() as any;
+  const { view, selected, filters, setFilters, items } = store;
+  const updateStatus = store.updateStatus || store.updateItemStatus;
+  const setSelected = store.setSelected || store.selectItem;
+
   const split = Boolean(selected);
 
   return (
-    <div className="flex min-h-0 flex-1">
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="hidden border-b border-line px-8 py-6 lg:block">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h1 className="text-[28px] font-medium lowercase tracking-tight">seu conteúdo, no seu ritmo.</h1>
-              <p className="mt-1 text-[13px] text-ink-muted">que ideia quer colocar no papel hoje?</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <label className="relative">
-                <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-soft" />
-                <input
-                  value={filters.query}
-                  onChange={(e) => setFilters({ query: e.target.value })}
-                  placeholder="buscar"
-                  className="w-44 rounded-full border border-line bg-white py-2 pl-8 pr-3 text-[13px] outline-none placeholder:text-ink-soft"
-                />
-              </label>
-              <a
-                href="#nova-ideia"
-                className="inline-flex items-center gap-1.5 rounded-full bg-coffee px-4 py-2 text-[13px] lowercase text-white"
-              >
-                <Plus size={14} />
-                novo conteúdo
-              </a>
-            </div>
+    <div className="h-screen max-h-screen overflow-hidden flex flex-col bg-neutral-50/20">
+      {/* Header Desktop */}
+      <header className="hidden border-b border-line px-8 py-4 lg:block shrink-0 bg-white">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h1 className="text-[26px] font-medium lowercase tracking-tight">seu conteúdo, no seu ritmo.</h1>
+            <p className="mt-0.5 text-[13px] text-ink-muted">que ideia quer colocar no papel hoje?</p>
           </div>
-          <div className="mt-5">
-            <FiltersBar />
-          </div>
-        </header>
-
-        <div className="px-4 py-4 lg:hidden">
-          <h1 className="text-[24px] font-medium lowercase leading-tight">seu conteúdo, no seu ritmo.</h1>
-          <div className="mt-4">
-            <FiltersBar />
+          <div className="flex items-center gap-2">
+            <label className="relative">
+              <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-soft" />
+              <input
+                value={filters?.query || ''}
+                onChange={(e) => setFilters({ query: e.target.value })}
+                placeholder="buscar"
+                className="w-44 rounded-full border border-line bg-white py-1.5 pl-8 pr-3 text-[13px] outline-none placeholder:text-ink-soft focus:border-neutral-400"
+              />
+            </label>
+            <a
+              href="#nova-ideia"
+              className="inline-flex items-center gap-1.5 rounded-full bg-coffee px-4 py-1.5 text-[13px] lowercase text-white hover:opacity-90 transition-opacity"
+            >
+              <Plus size={14} />
+              novo conteúdo
+            </a>
           </div>
         </div>
+        <div className="mt-3">
+          <FiltersBar />
+        </div>
+      </header>
 
-        <div className="flex-1 space-y-6 overflow-y-auto px-4 pb-28 lg:px-8 lg:pb-8">
-          {view === "calendario" && !split && <CalendarGrid />}
-          {view === "calendario" && split && (
-            <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-              <CalendarGrid compact />
-              <AgendaList title="sua agenda" />
-            </div>
-          )}
-          {view === "lista" && <AgendaList />}
-          <div id="nova-ideia">
-            <QuickAdd />
-          </div>
+      {/* Header Mobile */}
+      <div className="px-4 py-3 lg:hidden shrink-0 bg-white border-b border-line">
+        <h1 className="text-[20px] font-medium lowercase leading-tight">seu conteúdo, no seu ritmo.</h1>
+        <div className="mt-3">
+          <FiltersBar />
         </div>
       </div>
-      {split && <DetailsPanel />}
+
+      {/* Área Central com Altura Fixa e Sem Estourar 100vh */}
+      <div className="flex-1 min-h-0 overflow-hidden flex flex-col p-4 lg:px-8 lg:py-6">
+        <div className="flex-1 min-h-0 overflow-hidden flex flex-col">
+          {view === "calendario" && <CalendarGrid />}
+          {view === "lista" && <AgendaList />}
+          {view === "kanban" && (
+            <KanBanBoard 
+              items={items || []} 
+              onSelectCard={(item) => setSelected?.(item.id)} 
+              onStatusChange={(id, status) => updateStatus?.(id, status)} 
+            />
+          )}
+        </div>
+      </div>
+
+      {/* QuickAdd no Rodapé */}
+      <div id="nova-ideia" className="shrink-0 px-4 lg:px-8 pb-4">
+        <QuickAdd />
+      </div>
+
+    {/* Modal Centralizado / Painel de Detalhes Flutuante */}
+      {split && (
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 lg:p-6">
+          <div className="bg-white w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl border border-neutral-200 flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex-1 overflow-y-auto p-4 lg:p-6">
+              <DetailsPanel />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
