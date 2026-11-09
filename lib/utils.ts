@@ -77,14 +77,16 @@ export function formatLabel(format: Format) {
   return format === "shorts" ? "shorts" : "vídeo longo";
 }
 
-export function statusLabel(status: Status) {
+export function statusLabel(status: Status): string {
   const map: Record<Status, string> = {
     ideia: "ideia",
     roteiro: "roteiro",
+    gravacao: "gravação",
+    edicao: "edição",
     pronto: "pronto",
     publicado: "publicado",
   };
-  return map[status];
+  return map[status] || status;
 }
 
 export function uid() {
