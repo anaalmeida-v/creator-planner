@@ -8,6 +8,7 @@ import { CalendarGrid } from "./CalendarGrid";
 import { KanBanBoard } from "./KanbanBoard";
 import { FiltersBar } from "./FiltersBar";
 import { QuickAdd } from "./QuickAdd";
+import type { ContentItem } from "@/lib/types";
 
 export function PlannerView() {
   const store = useStore() as unknown as Record<string, unknown>;
@@ -15,7 +16,7 @@ export function PlannerView() {
   const selected = store.selected;
   const filters = (store.filters as { query?: string }) || {};
   const setFilters = store.setFilters as (filters: { query?: string }) => void;
-  const items = (store.items as any[]) || [];
+  const items = (store.items as ContentItem[]) || [];
   const updateStatus = store.updateStatus as (id: string, status: string) => void;
   const setSelected = store.setSelected as (id: string | null) => void;
 
